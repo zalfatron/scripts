@@ -1,0 +1,19 @@
+#!/bin/bash
+
+## Get the info to check if the touch screen is enabled
+status=$(xinput list-props 8 | grep 'Device Enabled (169):'| sed 's/\tDevice Enabled (169):\t//')
+
+if [ "$1" == "ed" ]; then
+	if [ "$status" -eq 1 ]; then
+		xinput disable 8
+	else
+		xinput enable 8
+	fi
+fi
+if [ "$1" == "s" ]; then
+	if [ "$status" -eq 1 ]; then
+		echo Enabled
+	else
+		echo Disabled
+	fi
+fi
