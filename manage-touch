@@ -1,13 +1,16 @@
 #!/bin/bash
 
+## Touch Screen model
+model=ELAN2514:00\ 04F3:2D01
+
 ## Get the info to check if the touch screen is enabled
-status=$(xinput list-props 'Device Name' | grep 'Device Enabled'| sed 's/\tDevice Enabled ([0-9][0-9][0-9]):\t//')
+status=$(xinput list-props  | grep 'Device Enabled'| sed 's/\tDevice Enabled ([0-9][0-9][0-9]):\t//')
 
 if [ "$1" == "ed" ]; then
 	if [ "$status" -eq 1 ]; then
-		xinput disable 'Device Name'
+		xinput disable "$model"
 	else
-		xinput enable 'Device Name'
+		xinput enable "$model"
 	fi
 fi
 if [ "$1" == "s" ]; then
