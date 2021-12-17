@@ -1,0 +1,18 @@
+#!/bin/sh
+
+options="Shutdown\nReboot\nLock\nResume"
+
+choice=$(printf "$options" | dmenu -p "What do you want to do?")
+
+if [ "$choice" = "Shutdown" ]; then
+	sleep 5
+	shutdown -h now
+elif [ "$choice" = "Reboot" ]; then
+	sleep 5
+	shutdown -r now
+elif [ "$choice" = "Lock" ]; then
+	xlock -mode sierpinski3d
+elif [ "$choice" = "Resume"]; then
+	echo "Program terminated"
+	exit 1
+fi

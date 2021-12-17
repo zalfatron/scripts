@@ -1,0 +1,27 @@
+#!/bin/sh
+
+while :; do
+	## Collect battery information
+	level=$(cat /sys/class/power_supply/BAT0/capacity)
+	charging=$(cat /sys/class/power_supply/BAT0/status)
+	
+	## Check if battery is 10%
+	while [ "$level" -le 10 ] && [ "$charging" = "Discharging" ]; do
+		## Check the percentage of the battery
+		level=$(cat /sys/class/power_supply/BAT0/capacity)
+		
+		## Notify the user that the battery is low
+		option=$(printf "Yes shutdown now.\nNo I will plug in the charger." | dmenu -p "BATTERY LOW!! PLUG IN CHARGER OR SHUTDOWN?")
+		
+		## Check the status of the battery 
+		charging=$(cat /sys/class/power_supply/BAT0/status)
+		if [ "$option" = "Yes shutdown now." ]; then 
+			sleep 10
+			shutdown -h now
+		elif [ "$charging" = "Charging" ]; then
+			break
+		fi
+		sleep 10
+	done
+	sleep 5
+done

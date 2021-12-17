@@ -1,0 +1,22 @@
+#!/bin/sh
+
+## Define editor to use
+editor="urxvt -e vim"
+
+declare -a options=(
+"dmenu - $HOME/repos/suckless/dmenu"
+"dwm - $HOME/repos/suckless/dwm"
+"slstatus - $HOME/repos/suckless/slstatus"
+"xinit - $HOME/.xinitrc"
+"zsh - $HOME/.zshrc"
+"zsh enviroment - $HOME/.zshenv"
+"quit"
+)
+
+choice=$(printf '%s\n' "${options[@]}" | dmenu -i -l 20 -p "What config do you want to edit?")
+if [ $choice = quit ]; then
+	exit 1	
+elif [ "$choice" ]; then
+	conf=$(printf '%s\n' "${choice}" | awk '{print $NF}')
+	$editor "$conf"
+fi
