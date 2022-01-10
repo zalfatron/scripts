@@ -11,8 +11,8 @@ while :; do
 		level=$(cat /sys/class/power_supply/BAT0/capacity)
 		
 		## Notify the user that the battery is low
-		option=$(printf "Yes shutdown now.\nNo I will plug in the charger." | dmenu -p "BATTERY LOW!! PLUG IN CHARGER OR SHUTDOWN?")
-		
+		option=$(printf "No I will plug in the charger.\nYes shutdown now." | dmenu -p "BATTERY LOW!! PLUG IN CHARGER OR SHUTDOWN?")
+
 		## Check the status of the battery 
 		charging=$(cat /sys/class/power_supply/BAT0/status)
 		if [ "$option" = "Yes shutdown now." ]; then 
